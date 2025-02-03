@@ -1,0 +1,56 @@
+div {
+	margin: 0px;
+	padding: 0px;
+}
+
+#playarea {
+	background-color: white;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 0;
+	overflow: hidden;
+}
+
+#hud {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+}
+
+
+#tilepadding {
+	width: calc(200vw);
+	height: calc(200vh);	
+	position: absolute;
+	top: calc(-50vh);
+	left: calc(-50vw);
+}
+
+#tilecontainer {
+	position: absolute;
+	top: calc(100vh);
+	left: calc(100vw);
+}
+
+.tile {
+	height: 95px;
+	width: 95px;
+	position: absolute;
+	border: 0.5px rgba(50, 50, 50, 0.2)  solid;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.red-tile {
+	background-color: #BC4749;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.blue-tile {
+	background-color: #086788;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
