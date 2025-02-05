@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>Reflectile</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>		
+		<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Slackey&family=Varela+Round&display=swap" rel="stylesheet">
+
+		<script src="rules.js"></script>
+		<script src="reflectile.js"></script>
+		<link rel="stylesheet" href="style.css"/>
+	</head>
+	<body>
+		<div id="splash" style="">
+			<div id="createjoin">
+				<div id="buttoncreate" class="button" onclick="creategame()">CREATE</div>
+				<input id="joinidbox" type="textbox" class="inputbox" maxlength=6 placeholder="GAMEID"/>
+				<div id="buttonjoin" class="button" onclick="joingame()" >JOIN</div>
+			</div>
+			<div id="namepanel">
+				<input id="namebox" type="textbox" class="inputbox" placeholder="NAME"/>
+				<div id="buttonenter" class="button" onclick="entergame()" >ENTER</div>
+			</div>
+			<div id="waitingpanel">
+				WAITING FOR OTHER PLAYER TO JOIN...
+				<br><br>
+				GAMEID: <span id="gameidbox"></span>
+			</div>
+		</div>
+		<div id="playarea">
+			<div id="tilepadding">
+				<div id="tilecontainer">
+				</div>
+			</div>
+		</div>
+		<div id = "hud">
+			<div id="comm-banner" class="hud-panel">
+			</div>
+			<div id="hand-panel" class="hud-panel">
+				<div id="card0" class="card" onclick="cardHandler(0)"></div>
+				<div id="card1" class="card" onclick="cardHandler(1)"></div>
+				<div id="card2" class="card" onclick="cardHandler(2)"></div>
+			</div>
+			<div id="color-picker-panel" class="hud-panel">
+				<span id="color-picker-label">Pick tile color</span>
+				<div id="pick-red" class="tile red-tile" onclick="pickColor('R')"></div>
+				<div id="pick-blue" class="tile blue-tile" onclick="pickColor('B')"></div>
+			</div>
+			<div id="discard-pile-panel" class="hud-panel">
+				<div id="card4" class="card"></div>
+			</div>
+			<div id="discard-button" class="hud-panel" onclick="discardHandler()">
+				<span id="cross-shape"><div id="cross1"></div><div id="cross2"></div></span><span>DISCARD</span>
+			</div>
+		</div>
+
+	</body>
+</html>
