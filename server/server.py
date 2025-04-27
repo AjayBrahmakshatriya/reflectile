@@ -4,7 +4,6 @@ from socketserver import ThreadingMixIn
 import threading
 import os
 import json
-
 import reflectile
 
 
@@ -29,7 +28,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 	def do_POST(self):
 		url = self.path
-		if url != "/api":
+		if url != "/api" and url != "/api/":
 			return self.bad_request()
 		length = int(self.headers['Content-Length'])
 		body = self.rfile.read(length)
@@ -58,6 +57,7 @@ class ThreadingGameServer(ThreadingMixIn, HTTPServer):
 
 
 def main():
+	reflectile.do_init()	
 	server = ThreadingGameServer(('0.0.0.0', GAME_PORT), RequestHandler)
 
 	try:

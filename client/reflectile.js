@@ -1,5 +1,6 @@
-const boardx = 160;
-const boardy = 160;
+const gamesize = 40;
+const boardx = gamesize * 4;
+const boardy = gamesize * 4;
 const tilesize = 100;
 const apiurl = "http://127.0.0.1:6677/api"
 const minitilesize = 75;
@@ -22,8 +23,12 @@ var board_state = -1;
 
 var playerid = -1;
 var gamename = "";
-var playernamer = "";
+var playername = "";
 var otherplayername = "";
+var playercolor = "";
+
+var rCount = gamesize;
+var bCount = gamesize;
 
 function creategame() {
 	$("#createjoin").hide();
@@ -40,6 +45,13 @@ function joingame() {
 	playerid = 2;
 }
 
+
+function ajaxError(xhr, textStatus, errorThrown) {
+	aj = this;
+	setTimeout(function() {
+		$.ajax(aj);
+	}, 1000);
+}
 
 
 function joinWaitHandler() {
@@ -58,7 +70,8 @@ function joinWaitHandler() {
 				$("#splash").hide();
 			});
 			gotoState0();
-		}
+		}, 
+		'error': ajaxError,
 	});
 }
 
@@ -92,9 +105,10 @@ function entergame() {
 				setCard(hand_state[2], 2);
 				$("#waitingpanel").show();
 				$("#gameidbox").html(gamename);
-			
+				playercolor = resp["playercolor"];
 				setTimeout(joinWaitHandler, 1000);	
-			}
+			}, 
+			'error': ajaxError,
 		});
 	} else {
 		gamename = $("#joinidbox").val();
@@ -116,11 +130,13 @@ function entergame() {
 				setCard(hand_state[1], 1);
 				setCard(hand_state[2], 2);
 				otherplayername = resp["otherplayername"];
+				playercolor = resp["playercolor"];
 				$("#splash").animate({"top": -1000}, 500).promise().done(function() {
 					$("#splash").hide();
 				});
 				gotoState3();
-			}
+			}, 
+			'error': ajaxError,
 		});
 	}
 	
@@ -257,7 +273,15 @@ function playCardAt(card, addcolor, posx, posy) {
 
 
 function gotoState0() {
-	$("#comm-banner").html("Your Turn");
+	base_banner = $("<span>");
+	base_banner.html("Your Turn, You are ")
+	banner = $("<span>", {
+		class: playercolor=="R"?"red-banner":"blue-banner"
+	});
+	banner.html(playercolor=="R"?"RED":"BLUE");
+	$("#comm-banner-text").empty();
+	$("#comm-banner-text").append(base_banner);	
+	$("#comm-banner-text").append(banner);	
 	turn_state = 0;
 }
 
@@ -283,7 +307,6 @@ function state3Handler() {
 				lastmatch2x = -1
 				lastmatch2y = -1
 				setCard(card, 4);
-				gotoState0();
 			} else {
 				x = resp["matchx"];
 				y = resp["matchy"];
@@ -294,14 +317,19 @@ function state3Handler() {
 				lastmatch2x = resp["match2x"];
 				lastmatch2y = resp["match2y"];
 				playCardAt(card, color, x, y);
+			}
+			if (resp["response"] == "gameend") {	
+				gotoGameEnd();
+			} else {
 				gotoState0();
 			}
-		}
+		},
+		'error': ajaxError,
 	});
 }
 
 function gotoState3() {
-	$("#comm-banner").html("Waiting for " + otherplayername + " to play");
+	$("#comm-banner-text").html("Waiting for " + otherplayername + " to play");
 	turn_state = 3;
 	setTimeout(state3Handler, 1000);
 }
@@ -438,16 +466,29 @@ function playTurn(card, color, x, y) {
 			}),
 		'dataType': "json",
 		'success': function(resp) {
-			if (resp["response"] != "continue") {
+			if (resp["response"] != "continue"  && resp["response"] != "gameend") {
 				alert("Failed to play turn, this could be a server error");
 				return;
 			}	
-			setCard(resp["newcard"], picked_card_idx);
-			picked_card_idx = -1;
-			gotoState3();
-		}
+			if (resp["response"] == "gameend") {
+				// TODO: assert that one of the colors is 0
+				gotoGameEnd();
+			} else {
+				setCard(resp["newcard"], picked_card_idx);
+				picked_card_idx = -1;
+				// This needs to happen only after the response comes back 
+				// because the server might think it is still our turn and return continue on 
+				// the wait timeout
+				gotoState3();
+			}
+		},
+		'error': ajaxError,
 	});
-
+	// Set the state to 3 immediately _anyway_ before the response comes back
+	// to avoid letting the player make another move in turn_state 1
+	// TODO: this needs to be cleaned up since the work is duplicated
+	$("#comm-banner-text").html("Waiting for " + otherplayername + " to play");
+	turn_state = 3;
 }
 
 
@@ -536,6 +577,12 @@ function createTile(x, y) {
 	$('#tilecontainer').append(tile);	
 }
 
+
+function updateTileBanner() {
+	$("#banner-tile-red").html(rCount);
+	$("#banner-tile-blue").html(bCount);
+}
+
 function setTileColor(x, y, color) {
 	if (x < 0 || x >= boardx || y < 0 || y >= boardy) return;
 	// This tile must already exist, if not create
@@ -546,6 +593,7 @@ function setTileColor(x, y, color) {
 
 	$(tilename).removeClass("red-tile");
 	$(tilename).removeClass("blue-tile");
+
 	if (color == "R")
 		$(tilename).addClass("red-tile");
 	else
@@ -556,11 +604,202 @@ function setTileColor(x, y, color) {
 	createTile(x + 1, y);	
 	createTile(x, y + 1);
 
+
+	// Before we update board state, update rCount and bCount
+	if (board_state[x][y] == "R") {
+		rCount += 1;
+	} else if (board_state[x][y] == "B") {
+		bCount += 1;
+	}
+
+	if (color == "R") {
+		rCount -= 1;
+	} else if (color == "B") {
+		bCount -= 1;
+	}
+
+	updateTileBanner();
+
 	// Update board state
 	board_state[x][y] = color;
 }
 
+function findInBoard(color) {
+	for (i = 0; i < boardx; i++) {
+		for (j = 0; j < boardy; j++) {
+			if (board_state[i][j] == color) 
+				return [i, j];
+		}
+	}
+	return null;
+}
 
+
+function findIslandAt(i, j, color, output) {
+	if (board_state[i][j] != color) return;
+	board_state[i][j] = 'X';
+	output.push([i, j]);
+	findIslandAt(i - 1, j, color, output);
+	findIslandAt(i, j - 1, color, output);
+	findIslandAt(i + 1, j, color, output);
+	findIslandAt(i, j + 1, color, output);
+}
+
+
+function canonicalizeIsland(island) {
+	minx = boardx + 1
+	miny = boardy + 1
+	for (i = 0; i < island.length; i++) {
+		if (island[i][0] < minx) minx = island[i][0];
+		if (island[i][1] < miny) miny = island[i][1];
+	}
+	for (i = 0; i < island.length; i++) {
+		island[i][0] -= minx;
+		island[i][1] -= miny;
+	}
+	
+	island.sort(function(a, b) {
+		if (a[0] < b[0]) return -1;
+		if (a[0] > b[0]) return 1;
+		if (a[1] < b[1]) return -1;
+		if (a[1] > a[1]) return 1;
+		return 0;
+	});
+	return island;	
+}
+
+function mirrorIsland(island) {
+	newisland = [];
+	for (i = 0; i < island.length; i++) {
+		newisland.push([-island[i][0], island[i][1]]);
+	}
+	newisland = canonicalizeIsland(newisland);
+	return newisland;	
+}
+
+function rotateIsland(island) {
+	newisland = []
+	for (i = 0; i < island.length; i++) {
+		newisland.push([island[i][1], -island[i][0]]);
+	}
+	newisland = canonicalizeIsland(newisland);
+	return newisland;	
+}
+
+function compareIslands(island1, island2) {
+	if (island1.length != island2.length) return false;
+	for (i = 0; i < island1.length; i++) {
+		if (island1[i][0] != island2[i][0] || island1[i][1] != island2[i][1]) 
+			return false
+	}
+	return true;
+}
+
+function scoreIsland(island) {
+
+	if (island.length <= 2) return 0;
+
+	symmetries = 1;
+	island = canonicalizeIsland(island);
+	
+	rotated = rotateIsland(island);	
+	if (compareIslands(island, rotated)) symmetries++;
+	rotated = rotateIsland(rotated);	
+	if (compareIslands(island, rotated)) symmetries++;
+	rotated = rotateIsland(rotated);	
+	if (compareIslands(island, rotated)) symmetries++;
+
+	mirrored = mirrorIsland(island);
+	if (compareIslands(island, mirrored)) symmetries++;
+	rotated = rotateIsland(mirrored);	
+	if (compareIslands(island, rotated)) symmetries++;
+	rotated = rotateIsland(rotated);	
+	if (compareIslands(island, rotated)) symmetries++;
+	rotated = rotateIsland(rotated);	
+	if (compareIslands(island, rotated)) symmetries++;
+
+	return symmetries * island.length;	
+}
+
+function countScore(color) {
+	// Repeat till all island of this color are gone from the board
+	nextPos = findInBoard(color);
+	total_score = 0;
+	maxislandscore = 0;
+	totalislands = 0;
+	while (nextPos != null) {
+		[i, j] = nextPos;
+		island = []
+		findIslandAt(i, j, color, island);
+		if (island.length > 2) totalislands++;
+		nextPos = findInBoard(color);
+		score = scoreIsland(island);	
+		if (score > maxislandscore) maxislandscore = score;
+		total_score += score;
+	}
+	return [total_score, maxislandscore, totalislands];
+}
+
+var scoreState = false;
+function showScore() {
+	$("#comm-banner").animate({"height": "500"}, 1000);
+	$("#score-button").show();
+	$("#score-button").css({"myproperty": 0});
+	$("#score-button").animate({"myproperty": 180}, {
+		'step': function(now, fx) {
+			$(this).css({'transform': 'rotate(' + now + 'deg)'});	
+		}, 
+		'duration': 1000
+	});
+	scoreState = true;
+}
+function hideScore() {
+	$("#comm-banner").animate({"height": "100"}, 1000);
+	$("#score-button").css({"myproperty2": 0});
+	$("#score-button").animate({"myproperty2": 180}, {
+		'step': function(now, fx) {
+			$(this).css({'transform': 'rotate(' + (180 - now) + 'deg)'});
+		}, 
+		'duration': 1000
+	});
+	scoreState = false;
+}
+function toggleScore() {
+	if (scoreState) hideScore();
+	else if (!scoreState) showScore();	
+}
+
+function gotoGameEnd() {
+	turn_state = 4;
+	// No more requests, the board has been updated. 
+	// Just calculate the score at this point
+	[total_score, maxislandscore, total_islands] = countScore('R');	
+	redtotalscore = total_score;
+	redplayername = playercolor == "R" ? playername:otherplayername;
+	$("#score-panel-red").html(redplayername + ":<br>" + 
+	    "Total Islands: " + total_islands + "<br>" + 
+	    "Maximum Scoring Island: " + maxislandscore + "<br>" + 
+	    "Total Score: " + total_score + "<br>");
+
+	[total_score, maxislandscore, total_islands] = countScore('B');	
+	bluetotalscore = total_score;
+	blueplayername = playercolor == "B" ? playername:otherplayername;
+	$("#score-panel-blue").html(":" + blueplayername + "<br>" + 
+	    total_islands + " :Total Islands" + "<br>" + 
+	    maxislandscore + " :Maximum Scoring Island" + "<br>" + 
+	    total_score + " :Total Score" + "<br>");
+
+	if (redtotalscore > bluetotalscore) {
+		$("#comm-banner-text").html(redplayername + " Wins!");	
+		$("#comm-banner-text").addClass("red-banner");
+	} else if (bluetotalscore > redtotalscore) {
+		$("#comm-banner-text").html(blueplayername + " Wins!");	
+		$("#comm-banner-text").addClass("blue-banner");
+	} else {
+		$("#comm-banner-text").html("It's a Draw!! :O");	
+	}
+	showScore();
+}
 
 $(function() {
 

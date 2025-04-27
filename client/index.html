@@ -1,12 +1,10 @@
 <html>
 	<head>
 		<title>Reflectile</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
-
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Slackey&family=Varela+Round&display=swap" rel="stylesheet">
+		<!--<script src="jquery.min.js"></script>-->
+		<!--<script src="jquery-ui.min.js"></script>-->
 
 		<script src="rules.js"></script>
 		<script src="reflectile.js"></script>
@@ -37,6 +35,26 @@
 		</div>
 		<div id = "hud">
 			<div id="comm-banner" class="hud-panel">
+				<div id="comm-banner-text"></div>
+				<div id="endbanner" style="">
+					<div id="score-panel-red" class="score-panel red-banner">
+						Player1:<br>
+						Total Islands: 0<br>
+						Maximum Scoring Island: 0<br>
+						Total Score: 0<br>
+					</div>
+					<div id="score-panel-blue" class="score-panel blue-banner">
+						:Player2<br>
+						0: Total Islands<br>
+						0: Maximum Scoring Island<br>
+						0: Total Score<br>
+					</div>
+				</div>
+			</div>
+			<div id="score-button" class="button" onclick="toggleScore()">&#9660;</div>
+			<div id="tile-banner" class="hud-panel">
+				<div id="banner-tile-red" class="mini-tile mini-tile-red">40</div>
+				<div id="banner-tile-blue" class="mini-tile mini-tile-blue">40</div>
 			</div>
 			<div id="hand-panel" class="hud-panel">
 				<div id="card0" class="card" onclick="cardHandler(0)"></div>
