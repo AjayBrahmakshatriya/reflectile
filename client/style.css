@@ -46,6 +46,60 @@ div {
 	z-index: 2;
 }
 
+
+@keyframes banner-animation {
+	0% {transform: rotate(0deg)}
+	5% {transform: rotate(180deg)}
+	
+	50% {transform: rotate(180deg)}
+	55% {transform: rotate(360deg)}
+	100% {transform: rotate(360deg)}
+}
+
+#banner-set {
+	position: absolute;
+	width: 700px;
+	height: 200px;
+	left: calc(50vw - 350px);
+	top: 120px;
+	animation-name: banner-animation;
+	animation-duration: 10s;	
+	animation-iteration-count: infinite;
+}
+
+#game-banner1 {
+	position: absolute;
+	width: 700px;
+	height: 100px;
+	line-height: 100px;
+	font-size: 100px;
+	top: 0;
+	left: -50px;
+	text-align: center;
+}
+#game-banner2 {
+	position: absolute;
+	width: 700px;
+	height: 100px;
+	line-height: 100px;
+	font-size: 100px;
+	left: 50px;
+	top: 100;
+	text-align: center;
+	transform: rotate(180deg);
+}
+
+#splash-footnote {
+	position: absolute; 
+	bottom: 50px;
+	width: 100%;
+	left: 0px;
+	text-align: center;
+	height: 50px;
+	font-size: 20px;
+	line-height: 50px;
+	color: rgb(100, 100, 100);
+}
 #createjoin {
 	position: absolute;
 	width: 300px;
@@ -107,7 +161,7 @@ div {
 #buttoncreate {
 	position: absolute;
 	left: 75px;
-	top: 25px;
+	top: 50px;
 	width: 150px;
 }
 #buttonenter {
