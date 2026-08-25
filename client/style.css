@@ -591,9 +591,9 @@ div {
 }
 #hand-panel {
 	width: 660px;
-	height: 330px;	
-	top: calc(100vh - 355px);
-	top: calc(100dvh - 355px);
+	height: 360px;
+	top: calc(100vh - 385px);
+	top: calc(100dvh - 385px);
 	left: 25px;
 }
 .hud-label {
@@ -602,18 +602,14 @@ div {
 	font-size: 18px;
 	line-height: 22px;
 	text-align: center;
+	bottom: 5px;
+	left: 0px;
 }
 #hand-label {
 	width: 660px;
-	top: calc(100vh - 22px);
-	top: calc(100dvh - 22px);
-	left: 25px;
 }
 #discard-pile-label {
 	width: 230px;
-	top: calc(100vh - 22px);
-	top: calc(100dvh - 22px);
-	left: calc(100vw - 255px);
 }
 #comm-banner {
 	width: 700px;
@@ -680,9 +676,9 @@ div {
 }
 #discard-pile-panel {
 	width: 230;
-	height: 330px;	
-	top: calc(100vh - 355px);
-	top: calc(100dvh - 355px);
+	height: 360px;
+	top: calc(100vh - 385px);
+	top: calc(100dvh - 385px);
 	left: calc(100vw - 255px);
 }
 #cross1, #cross2 {
@@ -963,17 +959,13 @@ div {
 
 	#hand-panel {
 		top: auto;
-		bottom: calc(max(18px, env(safe-area-inset-bottom)) + 24px);
+		bottom: max(18px, env(safe-area-inset-bottom));
 		left: 12px;
 		transform: scale(0.36);
 		transform-origin: bottom left;
 	}
 
 	#hand-label {
-		width: 238px;
-		top: auto;
-		bottom: max(4px, env(safe-area-inset-bottom));
-		left: 12px;
 		font-size: 14px;
 		line-height: 18px;
 	}
@@ -981,7 +973,7 @@ div {
 	#discard-pile-panel {
 		display: block;
 		top: auto;
-		bottom: calc(max(18px, env(safe-area-inset-bottom)) + 24px);
+		bottom: max(18px, env(safe-area-inset-bottom));
 		left: auto;
 		right: 12px;
 		transform: scale(0.3);
@@ -989,11 +981,6 @@ div {
 	}
 
 	#discard-pile-label {
-		width: 90px;
-		top: auto;
-		bottom: max(4px, env(safe-area-inset-bottom));
-		left: auto;
-		right: 2px;
 		font-size: 12px;
 		line-height: 18px;
 	}

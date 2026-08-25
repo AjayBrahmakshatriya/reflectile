@@ -7,9 +7,9 @@
 		<!--<script src="jquery.min.js"></script>-->
 		<!--<script src="jquery-ui.min.js"></script>-->
 
-		<script src="/rules.js?v=22"></script>
-		<script src="/reflectile.js?v=22"></script>
-		<link rel="stylesheet" href="/style.css?v=22"/>
+		<script src="/rules.js?v=23"></script>
+		<script src="/reflectile.js?v=23"></script>
+		<link rel="stylesheet" href="/style.css?v=23"/>
 	</head>
 	<body>
 		<div id="rules-button" class="button" onclick="toggleRulesCard()">RULES</div>
@@ -265,8 +265,8 @@
 				<div id="card0" class="card" onclick="cardHandler(0)"></div>
 				<div id="card1" class="card" onclick="cardHandler(1)"></div>
 				<div id="card2" class="card" onclick="cardHandler(2)"></div>
+				<div id="hand-label" class="hud-label">Hand</div>
 			</div>
-			<div id="hand-label" class="hud-label">Hand</div>
 			<div id="color-picker-panel" class="hud-panel">
 				<span id="color-picker-label">Pick tile color</span>
 				<div id="pick-red" class="tile red-tile" onclick="pickColor('R')"></div>
@@ -274,8 +274,8 @@
 			</div>
 			<div id="discard-pile-panel" class="hud-panel">
 				<div id="card4" class="card"></div>
+				<div id="discard-pile-label" class="hud-label">Last played</div>
 			</div>
-			<div id="discard-pile-label" class="hud-label">Last played</div>
 			<div id="discard-button" class="hud-panel" onclick="discardHandler()">
 				<span id="cross-shape"><div id="cross1"></div><div id="cross2"></div></span><span>DISCARD</span>
 			</div>
