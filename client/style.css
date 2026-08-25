@@ -966,8 +966,8 @@ div {
 	}
 
 	#hand-label {
-		font-size: 14px;
-		line-height: 18px;
+		font-size: 38px;
+		line-height: 44px;
 	}
 
 	#discard-pile-panel {
@@ -981,8 +981,8 @@ div {
 	}
 
 	#discard-pile-label {
-		font-size: 12px;
-		line-height: 18px;
+		font-size: 36px;
+		line-height: 44px;
 	}
 
 	#discard-button {
