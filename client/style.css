@@ -821,3 +821,66 @@ div {
 	text-align: center;
 	color: white;
 }
+
+@media (max-width: 720px) {
+	#comm-banner {
+		width: calc(100vw - 20px);
+		height: 64px;
+		top: 80px;
+		left: 10px;
+		font-size: 22px;
+		line-height: 64px;
+	}
+
+	#comm-banner-text {
+		width: calc(100vw - 20px);
+		height: 64px;
+		font-size: 22px;
+		line-height: 64px;
+	}
+
+	#tile-banner {
+		top: 155px;
+		left: 10px;
+		transform: scale(0.7);
+		transform-origin: top left;
+	}
+
+	#hand-panel {
+		top: auto;
+		bottom: max(18px, env(safe-area-inset-bottom));
+		left: 8px;
+		transform: scale(0.52);
+		transform-origin: bottom left;
+	}
+
+	#discard-pile-panel {
+		top: auto;
+		bottom: max(18px, env(safe-area-inset-bottom));
+		left: auto;
+		right: 8px;
+		transform: scale(0.52);
+		transform-origin: bottom right;
+	}
+
+	#discard-button {
+		top: auto;
+		bottom: calc(max(18px, env(safe-area-inset-bottom)) + 180px);
+	}
+
+	#score-button {
+		top: 87px;
+		left: auto;
+		right: 16px;
+	}
+
+	#color-picker-panel {
+		top: calc(50dvh - 88px);
+		left: calc(50vw - 138px);
+	}
+
+	.tile {
+		width: 74px;
+		height: 74px;
+	}
+}
