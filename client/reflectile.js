@@ -3,6 +3,7 @@ const boardx = gamesize * 4;
 const boardy = gamesize * 4;
 const tilesize = 100;
 const apiurl = "http://127.0.0.1:6677/api"
+//const apiurl = "/api"
 const minitilesize = 75;
 
 var isDragging = false;
@@ -562,7 +563,11 @@ function tileHandler(x, y) {
 	// Check if this is a valid target for the picked card	
 	if (!checkValidPick(x, y)) {
 		var tilename = "#tile-" + x + "-" + y;
-		$(tilename).effect("shake", {distance: "5", times: 3});
+		$(tilename).removeClass("tile-shake");
+		void $(tilename)[0].offsetWidth;
+		$(tilename).addClass("tile-shake").one("animationend", function() {
+			$(this).removeClass("tile-shake");
+		});
 		return;
 	}
 
