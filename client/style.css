@@ -958,7 +958,7 @@ div {
 	}
 
 	#hand-panel {
-		height: 430px;
+		height: 390px;
 		top: auto;
 		bottom: max(18px, env(safe-area-inset-bottom));
 		left: 12px;
