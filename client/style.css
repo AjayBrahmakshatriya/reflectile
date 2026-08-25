@@ -238,7 +238,14 @@ div {
 	grid-auto-rows: 24px;
 	width: max-content;
 	height: max-content;
-	margin: 0px auto;
+	margin: auto;
+}
+
+.rules-score-visual {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 84px;
 }
 
 .rules-transform-grid {
@@ -270,11 +277,15 @@ div {
 }
 
 .rules-score-text {
-	margin-top: 6px;
+	margin-top: 8px;
 	text-align: center;
 	color: #40434E;
 	font-size: 12px;
 	line-height: 16px;
+}
+
+.rules-score-visual + .rules-score-text {
+	margin-top: 12px;
 }
 
 .rules-caption {
