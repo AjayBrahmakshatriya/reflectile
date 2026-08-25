@@ -325,6 +325,28 @@ div {
 }
 
 @media (max-width: 720px) {
+	#banner-set {
+		width: calc(100vw - 32px);
+		height: calc((100vw - 32px) * 2 / 7);
+		left: 16px;
+	}
+
+	#game-banner1, #game-banner2 {
+		width: calc(100vw - 32px);
+		height: calc((100vw - 32px) / 7);
+		line-height: calc((100vw - 32px) / 7);
+		font-size: calc((100vw - 32px) / 7);
+	}
+
+	#game-banner1 {
+		left: calc((100vw - 32px) / -14);
+	}
+
+	#game-banner2 {
+		left: calc((100vw - 32px) / 14);
+		top: calc((100vw - 32px) / 7);
+	}
+
 	#rules-card {
 		width: 100vw;
 		max-width: 100vw;
