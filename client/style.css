@@ -856,14 +856,14 @@ div {
 
 @media (max-width: 720px) {
 	#rules-button {
-		top: 12px;
+		top: 88px;
 		right: 12px;
 	}
 
 	#comm-banner {
 		width: calc(100vw - 20px);
 		height: 64px;
-		top: 80px;
+		top: 12px;
 		left: 10px;
 		font-size: 22px;
 		line-height: 64px;
@@ -939,10 +939,12 @@ div {
 	#discard-button {
 		top: auto;
 		bottom: calc(max(18px, env(safe-area-inset-bottom)) + 180px);
+		left: auto;
+		right: 12px;
 	}
 
 	#score-button {
-		top: 87px;
+		top: 19px;
 		left: auto;
 		right: 16px;
 	}
