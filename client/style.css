@@ -326,27 +326,51 @@ div {
 
 @media (max-width: 720px) {
 	#rules-card {
-		max-width: calc(100vw - 24px);
-		max-height: calc(100dvh - 24px);
+		width: 100vw;
+		max-width: 100vw;
+		height: 100dvh;
+		max-height: 100dvh;
+		border-radius: 0px;
 	}
 
 	#rules-card-content {
-		width: calc(100% - 40px);
-		height: calc(100% - 190px);
-		top: 96px;
-		left: 20px;
-		font-size: 13px;
-		line-height: 20px;
+		width: calc(100% - 24px);
+		height: calc(100% - 176px);
+		top: 88px;
+		left: 12px;
+		font-size: 16px;
+		line-height: 24px;
 	}
 
 	#rules-card-title {
-		top: 24px;
-		font-size: 34px;
-		line-height: 42px;
+		top: 20px;
+		font-size: 38px;
+		line-height: 46px;
 	}
 
 	#rules-close-button {
-		bottom: 24px;
+		bottom: max(18px, env(safe-area-inset-bottom));
+	}
+
+	#rules-nav a {
+		font-size: 15px;
+		line-height: 22px;
+		padding: 7px 10px;
+	}
+
+	.rules-heading {
+		font-size: 28px;
+		line-height: 36px;
+	}
+
+	.rules-caption {
+		font-size: 20px;
+		line-height: 28px;
+	}
+
+	.rules-score-text {
+		font-size: 14px;
+		line-height: 19px;
 	}
 
 	.rules-transform-grid {
