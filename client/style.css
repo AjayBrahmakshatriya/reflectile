@@ -596,6 +596,25 @@ div {
 	top: calc(100dvh - 355px);
 	left: 25px;
 }
+.hud-label {
+	position: absolute;
+	color: rgb(100, 100, 100);
+	font-size: 18px;
+	line-height: 22px;
+	text-align: center;
+}
+#hand-label {
+	width: 660px;
+	top: calc(100vh - 22px);
+	top: calc(100dvh - 22px);
+	left: 25px;
+}
+#discard-pile-label {
+	width: 230px;
+	top: calc(100vh - 22px);
+	top: calc(100dvh - 22px);
+	left: calc(100vw - 255px);
+}
 #comm-banner {
 	width: 700px;
 	height: 100px;
@@ -944,20 +963,39 @@ div {
 
 	#hand-panel {
 		top: auto;
-		bottom: max(18px, env(safe-area-inset-bottom));
+		bottom: calc(max(18px, env(safe-area-inset-bottom)) + 24px);
 		left: 12px;
 		transform: scale(0.36);
 		transform-origin: bottom left;
 	}
 
+	#hand-label {
+		width: 238px;
+		top: auto;
+		bottom: max(4px, env(safe-area-inset-bottom));
+		left: 12px;
+		font-size: 14px;
+		line-height: 18px;
+	}
+
 	#discard-pile-panel {
 		display: block;
 		top: auto;
-		bottom: max(18px, env(safe-area-inset-bottom));
+		bottom: calc(max(18px, env(safe-area-inset-bottom)) + 24px);
 		left: auto;
 		right: 12px;
 		transform: scale(0.3);
 		transform-origin: bottom right;
+	}
+
+	#discard-pile-label {
+		width: 90px;
+		top: auto;
+		bottom: max(4px, env(safe-area-inset-bottom));
+		left: auto;
+		right: 2px;
+		font-size: 12px;
+		line-height: 18px;
 	}
 
 	#discard-button {
