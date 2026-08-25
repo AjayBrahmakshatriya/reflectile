@@ -749,6 +749,7 @@ div {
 	top: calc(-50vh);
 	top: calc(-50dvh);
 	left: calc(-50vw);
+	touch-action: none;
 }
 
 #tilecontainer {
@@ -826,6 +827,11 @@ div {
 }
 
 @media (max-width: 720px) {
+	#rules-button {
+		top: 12px;
+		right: 12px;
+	}
+
 	#comm-banner {
 		width: calc(100vw - 20px);
 		height: 64px;
@@ -852,18 +858,13 @@ div {
 	#hand-panel {
 		top: auto;
 		bottom: max(18px, env(safe-area-inset-bottom));
-		left: 8px;
-		transform: scale(0.52);
-		transform-origin: bottom left;
+		left: 50%;
+		transform: translateX(-50%) scale(0.52);
+		transform-origin: bottom center;
 	}
 
 	#discard-pile-panel {
-		top: auto;
-		bottom: max(18px, env(safe-area-inset-bottom));
-		left: auto;
-		right: 8px;
-		transform: scale(0.52);
-		transform-origin: bottom right;
+		display: none;
 	}
 
 	#discard-button {
