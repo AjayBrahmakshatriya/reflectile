@@ -749,7 +749,6 @@ div {
 	top: calc(-50vh);
 	top: calc(-50dvh);
 	left: calc(-50vw);
-	touch-action: none;
 }
 
 #tilecontainer {
@@ -757,6 +756,25 @@ div {
 	top: calc(100vh);
 	top: calc(100dvh);
 	left: calc(100vw);
+}
+
+#board-pan-controls {
+	display: none;
+}
+
+.pan-button {
+	position: absolute;
+	width: 54px;
+	height: 54px;
+	border-radius: 5px;
+	border: 1px rgba(150, 150, 150, 0.2) solid;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+	background-color: #CCDBDC;
+	color: rgb(100, 100, 100);
+	cursor: pointer;
+	font-size: 28px;
+	line-height: 54px;
+	text-align: center;
 }
 
 .tile {
@@ -853,6 +871,42 @@ div {
 		left: 10px;
 		transform: scale(0.7);
 		transform-origin: top left;
+	}
+
+	#tilecontainer {
+		transform: scale(0.5);
+		transform-origin: 0px 0px;
+	}
+
+	#board-pan-controls {
+		display: block;
+		position: fixed;
+		left: 50%;
+		top: 155px;
+		width: 164px;
+		height: 164px;
+		transform: translateX(-50%);
+		z-index: 2;
+	}
+
+	#pan-up {
+		top: 0px;
+		left: 55px;
+	}
+
+	#pan-left {
+		top: 55px;
+		left: 0px;
+	}
+
+	#pan-right {
+		top: 55px;
+		left: 110px;
+	}
+
+	#pan-down {
+		top: 110px;
+		left: 55px;
 	}
 
 	#hand-panel {

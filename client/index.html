@@ -7,9 +7,9 @@
 		<!--<script src="jquery.min.js"></script>-->
 		<!--<script src="jquery-ui.min.js"></script>-->
 
-		<script src="rules.js?v=9"></script>
-		<script src="reflectile.js?v=9"></script>
-		<link rel="stylesheet" href="style.css?v=9"/>
+		<script src="rules.js?v=10"></script>
+		<script src="reflectile.js?v=10"></script>
+		<link rel="stylesheet" href="style.css?v=10"/>
 	</head>
 	<body>
 		<div id="rules-button" class="button" onclick="toggleRulesCard()">RULES</div>
@@ -254,6 +254,12 @@
 			<div id="tile-banner" class="hud-panel">
 				<div id="banner-tile-red" class="mini-tile mini-tile-red">40</div>
 				<div id="banner-tile-blue" class="mini-tile mini-tile-blue">40</div>
+			</div>
+			<div id="board-pan-controls">
+				<div id="pan-up" class="pan-button" onclick="panBoard(0, 100)">&#9650;</div>
+				<div id="pan-left" class="pan-button" onclick="panBoard(100, 0)">&#9664;</div>
+				<div id="pan-right" class="pan-button" onclick="panBoard(-100, 0)">&#9654;</div>
+				<div id="pan-down" class="pan-button" onclick="panBoard(0, -100)">&#9660;</div>
 			</div>
 			<div id="hand-panel" class="hud-panel">
 				<div id="card0" class="card" onclick="cardHandler(0)"></div>

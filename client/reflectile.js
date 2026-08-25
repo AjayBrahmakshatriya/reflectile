@@ -42,6 +42,15 @@ function toggleRulesCard() {
 	$("#rules-overlay").toggle();
 }
 
+function panBoard(dx, dy) {
+	var board = $("#tilepadding");
+	var pos = board.position();
+	board.css({
+		left: pos.left + dx,
+		top: pos.top + dy,
+	});
+}
+
 function creategame() {
 	$("#createjoin").hide();
 	$("#namepanel").show();
@@ -839,35 +848,6 @@ $(function() {
 	}});
 	$("#tilepadding").on('mousedown', function() {
 		isDragging = false;
-	});
-
-	var touchDrag = null;
-	$("#tilepadding").on('touchstart', function(e) {
-		if (e.originalEvent.touches.length != 1) return;
-		var touch = e.originalEvent.touches[0];
-		var pos = $("#tilepadding").position();
-		touchDrag = {
-			x: touch.clientX,
-			y: touch.clientY,
-			left: pos.left,
-			top: pos.top,
-		};
-		isDragging = false;
-	});
-	$(document).on('touchmove', function(e) {
-		if (touchDrag == null || e.originalEvent.touches.length != 1) return;
-		var touch = e.originalEvent.touches[0];
-		var dx = touch.clientX - touchDrag.x;
-		var dy = touch.clientY - touchDrag.y;
-		if (Math.abs(dx) > 4 || Math.abs(dy) > 4) isDragging = true;
-		$("#tilepadding").css({
-			left: touchDrag.left + dx,
-			top: touchDrag.top + dy,
-		});
-		e.preventDefault();
-	});
-	$(document).on('touchend touchcancel', function() {
-		touchDrag = null;
 	});
 
 });
