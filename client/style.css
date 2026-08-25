@@ -38,6 +38,7 @@ div {
 	height: 100%;
 	height: 100dvh;
 	z-index: 1;
+	pointer-events: none;
 }
 
 #splash {
@@ -762,18 +763,27 @@ div {
 	display: none;
 }
 
+#score-button,
+#tile-banner,
+#hand-panel,
+#color-picker-panel,
+#discard-pile-panel,
+#discard-button {
+	pointer-events: auto;
+}
+
 .pan-button {
 	position: absolute;
-	width: 54px;
-	height: 54px;
+	width: 27px;
+	height: 27px;
 	border-radius: 5px;
 	border: 1px rgba(150, 150, 150, 0.2) solid;
 	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 	background-color: #CCDBDC;
 	color: rgb(100, 100, 100);
 	cursor: pointer;
-	font-size: 28px;
-	line-height: 54px;
+	font-size: 14px;
+	line-height: 27px;
 	text-align: center;
 }
 
@@ -881,32 +891,37 @@ div {
 	#board-pan-controls {
 		display: block;
 		position: fixed;
-		left: 50%;
-		top: 155px;
-		width: 164px;
-		height: 164px;
-		transform: translateX(-50%);
+		top: 0px;
+		left: 0px;
+		width: 100vw;
+		height: 100vh;
+		height: 100dvh;
+		pointer-events: none;
 		z-index: 2;
 	}
 
+	.pan-button {
+		pointer-events: auto;
+	}
+
 	#pan-up {
-		top: 0px;
-		left: 55px;
+		top: 154px;
+		left: calc(50vw - 13.5px);
 	}
 
 	#pan-left {
-		top: 55px;
-		left: 0px;
+		top: calc(50dvh - 13.5px);
+		left: 12px;
 	}
 
 	#pan-right {
-		top: 55px;
-		left: 110px;
+		top: calc(50dvh - 13.5px);
+		right: 12px;
 	}
 
 	#pan-down {
-		top: 110px;
-		left: 55px;
+		bottom: calc(max(18px, env(safe-area-inset-bottom)) + 188px);
+		left: calc(50vw - 13.5px);
 	}
 
 	#hand-panel {
