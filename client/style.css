@@ -856,8 +856,12 @@ div {
 
 @media (max-width: 720px) {
 	#rules-button {
-		top: 88px;
+		top: 12px;
 		right: 12px;
+	}
+
+	body.game-active #rules-button {
+		top: 88px;
 	}
 
 	#comm-banner {

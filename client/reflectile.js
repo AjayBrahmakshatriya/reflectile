@@ -89,6 +89,7 @@ function joinWaitHandler() {
 			otherplayername = resp["otherplayername"].toUpperCase();
 			$("#splash").animate({"top": -1000}, 500).promise().done(function() {
 				$("#splash").hide();
+				$("body").addClass("game-active");
 			});
 			gotoState0();
 		}, 
@@ -154,6 +155,7 @@ function entergame() {
 				playercolor = resp["playercolor"];
 				$("#splash").animate({"top": -1000}, 500).promise().done(function() {
 					$("#splash").hide();
+					$("body").addClass("game-active");
 				});
 				gotoState3();
 			}, 
