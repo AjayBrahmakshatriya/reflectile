@@ -958,6 +958,7 @@ div {
 	}
 
 	#hand-panel {
+		height: 430px;
 		top: auto;
 		bottom: max(18px, env(safe-area-inset-bottom));
 		left: 12px;
@@ -972,6 +973,7 @@ div {
 
 	#discard-pile-panel {
 		display: block;
+		height: 430px;
 		top: auto;
 		bottom: max(18px, env(safe-area-inset-bottom));
 		left: auto;
