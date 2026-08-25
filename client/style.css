@@ -22,7 +22,8 @@ div {
 	background-color: white;
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	height: 100dvh;
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	z-index: 0;
@@ -30,20 +31,320 @@ div {
 }
 
 #hud {
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	z-index: 1;
 }
 
 #splash {
-	position: absolute;
+	position: fixed;
 	background-color: #EB9192;
 	width: 100%;
 	height: 100%;
+	height: 100dvh;
 	top: 0px;
 	left: 0px;
 	z-index: 2;
+}
+
+#rules-button {
+	position: fixed;
+	top: 25px;
+	right: 25px;
+	z-index: 4;
+	width: 120px;
+}
+
+#rules-overlay {
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	height: 100dvh;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
+	background-color: rgba(64, 67, 78, 0.35);
+}
+
+#rules-card {
+	position: absolute;
+	width: 760px;
+	max-width: calc(100vw - 50px);
+	height: 760px;
+	max-height: calc(100vh - 50px);
+	max-height: calc(100dvh - 50px);
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #FDD5B1;
+	border-radius: 5px;
+	border: 1px rgba(50, 50, 50, 0.2) solid;
+	box-shadow: 2px 2px 18px rgba(0, 0, 0, 0.3);
+}
+
+#rules-card-title {
+	position: absolute;
+	width: 100%;
+	top: 30px;
+	left: 0px;
+	text-align: center;
+	font-size: 40px;
+	line-height: 50px;
+	color: rgb(100, 100, 100);
+}
+
+#rules-card-content {
+	position: absolute;
+	width: calc(100% - 80px);
+	height: calc(100% - 220px);
+	top: 110px;
+	left: 40px;
+	background-color: #FEE7D2;
+	border-radius: 5px;
+	overflow-y: auto;
+	scroll-behavior: smooth;
+	color: #40434E;
+	font-family: "Slackey", serif;
+	font-size: 15px;
+	line-height: 22px;
+	box-sizing: border-box;
+	padding: 0px 18px 18px 18px;
+}
+
+#rules-close-button {
+	position: absolute;
+	width: 130px;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 35px;
+}
+
+#rules-nav {
+	position: sticky;
+	top: 0px;
+	z-index: 1;
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	padding: 18px 0px 12px 0px;
+	background-color: #FEE7D2;
+}
+
+#rules-nav a {
+	display: block;
+	padding: 6px 10px;
+	background-color: white;
+	border-radius: 5px;
+	color: rgb(100, 100, 100);
+	text-decoration: none;
+	border: 1px rgba(50, 50, 50, 0.15) solid;
+}
+
+.rules-section {
+	padding-top: 12px;
+	margin-bottom: 22px;
+	border-top: 1px rgba(64, 67, 78, 0.18) solid;
+}
+
+.rules-section:first-of-type {
+	border-top: none;
+}
+
+.rules-heading {
+	font-size: 24px;
+	line-height: 32px;
+	color: rgb(100, 100, 100);
+	margin-bottom: 8px;
+}
+
+.rules-section p {
+	margin: 0px 0px 10px 0px;
+}
+
+.rules-card-row {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 12px 0px 18px 0px;
+}
+
+.rules-mini-card {
+	position: relative;
+	width: 200px;
+	height: 300px;
+	transform: scale(0.75);
+	transform-origin: center center;
+	margin: -37px -5px -37px -25px;
+	background-color: #FDD5B1;
+	border-radius: 5px;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+	border: 0.5px rgba(50, 50, 50, 0.2) solid;
+}
+
+.rules-card-grid {
+	position: absolute;
+	display: grid;
+	grid-template-columns: repeat(2, 70px);
+	grid-template-rows: repeat(2, 70px);
+	gap: 5px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.rules-legend {
+	display: grid;
+	gap: 6px;
+}
+
+.rules-swatch {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	margin-right: 8px;
+	border-radius: 3px;
+	vertical-align: middle;
+}
+
+.rules-board {
+	display: grid;
+	gap: 4px;
+	background-color: rgba(255, 255, 255, 0.35);
+	border-radius: 5px;
+	padding: 6px;
+	box-sizing: border-box;
+}
+
+.rules-board-small {
+	grid-template-columns: repeat(3, 30px);
+	grid-template-rows: repeat(3, 30px);
+	width: 114px;
+	height: 114px;
+}
+
+.rules-board-medium {
+	grid-template-columns: repeat(3, 30px);
+	grid-template-rows: repeat(3, 30px);
+	width: 114px;
+	height: 114px;
+}
+
+.rules-board-score {
+	grid-auto-columns: 24px;
+	grid-auto-rows: 24px;
+	width: max-content;
+	height: max-content;
+	margin: 0px auto;
+}
+
+.rules-transform-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 114px);
+	gap: 10px;
+	margin: 12px 0px 18px 0px;
+	justify-content: center;
+}
+
+.rules-example-pair {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 12px 0px 18px 0px;
+}
+
+.rules-score-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 140px);
+	gap: 14px;
+	margin: 12px 0px 18px 0px;
+	justify-content: center;
+}
+
+.rules-score-example {
+	width: 140px;
+}
+
+.rules-score-text {
+	margin-top: 6px;
+	text-align: center;
+	color: #40434E;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.rules-caption {
+	text-align: center;
+	color: rgb(100, 100, 100);
+	font-size: 18px;
+	line-height: 26px;
+}
+
+.rules-cell {
+	width: 100%;
+	height: 100%;
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+.rules-red {
+	background-color: #BC4749;
+}
+
+.rules-blue {
+	background-color: #086788;
+}
+
+.rules-wild {
+	background-color: #086788;
+	background-image: linear-gradient(45deg, #BC4749 25%, transparent 25%, transparent 50%, #BC4749 50%, #BC4749 75%, transparent 75%, #086788);
+}
+
+.rules-dim {
+	opacity: 0.5;
+}
+
+.rules-empty {
+	box-shadow: none;
+	background-color: transparent;
+}
+
+@media (max-width: 720px) {
+	#rules-card {
+		max-width: calc(100vw - 24px);
+		max-height: calc(100dvh - 24px);
+	}
+
+	#rules-card-content {
+		width: calc(100% - 40px);
+		height: calc(100% - 190px);
+		top: 96px;
+		left: 20px;
+		font-size: 13px;
+		line-height: 20px;
+	}
+
+	#rules-card-title {
+		top: 24px;
+		font-size: 34px;
+		line-height: 42px;
+	}
+
+	#rules-close-button {
+		bottom: 24px;
+	}
+
+	.rules-transform-grid {
+		grid-template-columns: repeat(2, 114px);
+	}
+
+	.rules-score-grid {
+		grid-template-columns: repeat(2, 140px);
+	}
 }
 
 
@@ -105,6 +406,7 @@ div {
 	width: 300px;
 	height: 300px;
 	top: calc(50vh - 150px);
+	top: calc(50dvh - 150px);
 	left: calc(50vw - 150px);
 }
 #namepanel {
@@ -112,12 +414,14 @@ div {
 	width: 300px;
 	height: 300px;
 	top: calc(50vh - 150px);
+	top: calc(50dvh - 150px);
 	left: calc(50vw - 150px);
 	display: none;
 }
 #waitingpanel {
 	position: absolute;
 	top: calc(50vh - 150px);
+	top: calc(50dvh - 150px);
 	left: 0;
 	width: calc(100vw);
 	color: rgb(100, 100, 100);
@@ -202,6 +506,7 @@ div {
 	width: 700px;
 	height: 400px;
 	top: calc(50vh - 200px);
+	top: calc(50dvh - 200px);
 	left: calc(50vw - 350px);
 	/*display: none;*/
 }
@@ -224,6 +529,7 @@ div {
 	width: 660px;
 	height: 330px;	
 	top: calc(100vh - 355px);
+	top: calc(100dvh - 355px);
 	left: 25px;
 }
 #comm-banner {
@@ -269,6 +575,7 @@ div {
 	width: 275px;
 	height: 175px;	
 	top: calc(50vh - 75px);
+	top: calc(50dvh - 75px);
 	left: calc(50vw - 135px);
 	display: none;
 }
@@ -292,6 +599,7 @@ div {
 	width: 230;
 	height: 330px;	
 	top: calc(100vh - 355px);
+	top: calc(100dvh - 355px);
 	left: calc(100vw - 255px);
 }
 #cross1, #cross2 {
@@ -318,6 +626,7 @@ div {
 	width: 150px;
 	height: 50px;
 	top: calc(100vh - 75px);
+	top: calc(100dvh - 75px);
 	left: calc(50vw - 75px);	
 	background-color: #BC4749;
 	color: white;
@@ -372,14 +681,17 @@ div {
 #tilepadding {
 	width: calc(200vw);
 	height: calc(200vh);	
+	height: calc(200dvh);
 	position: absolute;
 	top: calc(-50vh);
+	top: calc(-50dvh);
 	left: calc(-50vw);
 }
 
 #tilecontainer {
 	position: absolute;
 	top: calc(100vh);
+	top: calc(100dvh);
 	left: calc(100vw);
 }
 

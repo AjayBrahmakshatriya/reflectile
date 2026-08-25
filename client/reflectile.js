@@ -30,6 +30,18 @@ var playercolor = "";
 var rCount = gamesize;
 var bCount = gamesize;
 
+function showRulesCard() {
+	$("#rules-overlay").show();
+}
+
+function hideRulesCard() {
+	$("#rules-overlay").hide();
+}
+
+function toggleRulesCard() {
+	$("#rules-overlay").toggle();
+}
+
 function creategame() {
 	$("#createjoin").hide();
 	$("#namepanel").show();

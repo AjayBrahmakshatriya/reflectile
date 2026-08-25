@@ -11,6 +11,182 @@
 		<link rel="stylesheet" href="style.css"/>
 	</head>
 	<body>
+		<div id="rules-button" class="button" onclick="toggleRulesCard()">RULES</div>
+		<div id="rules-overlay" onclick="hideRulesCard()">
+			<div id="rules-card" onclick="event.stopPropagation()">
+				<div id="rules-card-title">RULES</div>
+				<div id="rules-card-content">
+					<div id="rules-nav">
+						<a href="#rules-goal">Goal</a>
+						<a href="#rules-turn">Turn</a>
+						<a href="#rules-cards">Cards</a>
+						<a href="#rules-scoring">Scoring</a>
+					</div>
+
+					<div id="rules-goal" class="rules-section">
+						<div class="rules-heading">Goal</div>
+						<p>Reflectile is a race to build beautiful islands of matching tiles. Bigger islands are good, but symmetric islands are worth much more.</p>
+						<p>Each player is assigned red or blue. Your score comes from islands in your color, but either player can place either color if their card allows it.</p>
+						<p>Watch both tile supplies. The game ends immediately when either color runs out, even if that happens on your opponent's turn.</p>
+					</div>
+
+					<div id="rules-turn" class="rules-section">
+						<div class="rules-heading">Turn</div>
+						<p>On your turn, pick one card from your hand. You may play it on the board or discard it without placing a tile.</p>
+						<p>After the card is used, draw a replacement card and pass the turn. Discarding is always allowed, so you never have to make a move that helps your opponent.</p>
+					</div>
+
+					<div id="rules-cards" class="rules-section">
+						<div class="rules-heading">Reading A Card</div>
+						<p>Every card shows a tiny map. Dim tiles are the tiles that must already exist on the board. The full-color tile is the new tile you will add.</p>
+						<p>The color of the full-color tile tells you what the card places. A red card adds red, a blue card adds blue, and a wildcard lets you choose.</p>
+						<div class="rules-card-row">
+							<div class="rules-mini-card">
+								<div class="rules-card-grid">
+									<div class="rules-cell rules-blue rules-dim" style="grid-column: 1; grid-row: 1;"></div>
+									<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 1;"></div>
+									<div class="rules-cell rules-red rules-dim" style="grid-column: 2; grid-row: 2;"></div>
+								</div>
+							</div>
+							<div class="rules-legend">
+								<div><span class="rules-swatch rules-red"></span>Red card adds red</div>
+								<div><span class="rules-swatch rules-blue"></span>Blue card adds blue</div>
+								<div><span class="rules-swatch rules-wild"></span>Wildcard chooses red or blue</div>
+							</div>
+						</div>
+
+						<div class="rules-heading">Turn Or Flip</div>
+						<p>You do not have to match a card exactly as printed. You may rotate it or reflect it, as long as the dim tiles line up with matching tiles on the board.</p>
+						<p>These are the eight possible orientations of the same card. In each one, the dim tiles are already present and the full-color tile is the new placement.</p>
+						<div class="rules-transform-grid">
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 1; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 2; grid-row: 3;"></div>
+							</div>
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 2; grid-row: 3;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 3; grid-row: 2;"></div>
+							</div>
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 3; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 2; grid-row: 1;"></div>
+							</div>
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 2; grid-row: 1;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 1; grid-row: 2;"></div>
+							</div>
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 3; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 2; grid-row: 3;"></div>
+							</div>
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 2; grid-row: 3;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 1; grid-row: 2;"></div>
+							</div>
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 1; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 2; grid-row: 1;"></div>
+							</div>
+							<div class="rules-board rules-board-small">
+								<div class="rules-cell rules-blue rules-dim" style="grid-column: 2; grid-row: 1;"></div>
+								<div class="rules-cell rules-red rules-new" style="grid-column: 2; grid-row: 2;"></div>
+								<div class="rules-cell rules-red rules-dim" style="grid-column: 3; grid-row: 2;"></div>
+							</div>
+						</div>
+
+						<div class="rules-heading">Wildcards</div>
+						<p>Normal cards must place on empty spaces. Wildcards are special: they may replace an existing tile, then become the red or blue tile you chose.</p>
+						<p>Wildcards are the main way to repair a broken island. They can also disrupt an opponent's symmetry at the last second.</p>
+						<div class="rules-example-pair">
+							<div>
+								<div class="rules-caption">Before</div>
+								<div class="rules-board rules-board-medium">
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 1; grid-row: 2;"></div>
+									<div class="rules-cell rules-blue" style="grid-column: 2; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 3; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 3;"></div>
+								</div>
+							</div>
+							<div>
+								<div class="rules-caption">After</div>
+								<div class="rules-board rules-board-medium">
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 1; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 3; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 3;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="rules-scoring" class="rules-section">
+						<div class="rules-heading">Scoring</div>
+						<p>At the end of the game, each color scores its islands. An island is a group of same-color tiles connected up, down, left, or right. Diagonals do not connect.</p>
+						<p>Islands with 1 or 2 tiles score 0. Islands with 3 or more tiles score points equal to the number of tiles in the island multiplied by the order of symmetry of the island, so a small perfect shape can beat a larger messy one.</p>
+						<p>The order of symmetry is the number of ways you can transform the island and get the same shape back. Check 4 rotations: 0, 90, 180, and 270 degrees.</p>
+						<p>Also check 4 reflections: vertical axis, horizontal axis, and the 2 diagonal axes. Symmetry can be x1, x2, x4, or x8.</p>
+						<div class="rules-score-grid">
+							<div class="rules-score-example">
+								<div class="rules-caption">x1</div>
+								<div class="rules-board rules-board-score">
+									<div class="rules-cell rules-red" style="grid-column: 1; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 3; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 4; grid-row: 2;"></div>
+								</div>
+								<div class="rules-score-text">1 rotation + 0 reflections</div>
+								<div class="rules-score-text">Total score: 5 tiles * 1 = 5</div>
+							</div>
+							<div class="rules-score-example">
+								<div class="rules-caption">x2</div>
+								<div class="rules-board rules-board-score">
+									<div class="rules-cell rules-red" style="grid-column: 1; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 3; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 2;"></div>
+								</div>
+								<div class="rules-score-text">1 rotation + 1 reflection</div>
+								<div class="rules-score-text">Total score: 4 tiles * 2 = 8</div>
+							</div>
+							<div class="rules-score-example">
+								<div class="rules-caption">x4</div>
+								<div class="rules-board rules-board-score">
+									<div class="rules-cell rules-red" style="grid-column: 1; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 3; grid-row: 1;"></div>
+								</div>
+								<div class="rules-score-text">2 rotations + 2 reflections</div>
+								<div class="rules-score-text">Total score: 3 tiles * 4 = 12</div>
+							</div>
+							<div class="rules-score-example">
+								<div class="rules-caption">x8</div>
+								<div class="rules-board rules-board-score">
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 1;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 1; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 3; grid-row: 2;"></div>
+									<div class="rules-cell rules-red" style="grid-column: 2; grid-row: 3;"></div>
+								</div>
+								<div class="rules-score-text">4 rotations + 4 reflections</div>
+								<div class="rules-score-text">Total score: 5 tiles * 8 = 40</div>
+							</div>
+						</div>
+						<p>Add together all scoring islands in your color. The player with the higher total score wins.</p>
+					</div>
+				</div>
+				<div id="rules-close-button" class="button" onclick="hideRulesCard()">CLOSE</div>
+			</div>
+		</div>
 		<div id="splash" style="">
 			<div id="banner-set">
 				<div id="game-banner1" class="red-banner">REFLECTILE</div>
@@ -31,6 +207,7 @@
 				GAMEID: <span id="gameidbox"></span>
 			</div>
 			<!--<div id="splash-footnote">Designed by Ajay and Tom with &#x2764;&#xfe0f;</div>-->
+			<div id="splash-footnote">Designed by Ajay and Tom. Implemented by Ajay with &#x2764;&#xfe0f;</div>
 		</div>
 		<div id="playarea">
 			<div id="tilepadding">
