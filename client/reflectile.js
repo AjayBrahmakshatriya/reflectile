@@ -54,7 +54,7 @@ function panBoard(dx, dy) {
 
 function setGameUrl() {
 	if (gamename == "") return;
-	window.history.replaceState({}, "", "/" + gamename);
+	window.history.replaceState({}, "", "/game/" + gamename);
 }
 
 function saveResumeInfo() {
@@ -63,7 +63,7 @@ function saveResumeInfo() {
 }
 
 function getGameIdFromUrl() {
-	var match = window.location.pathname.match(/^\/([A-Z0-9]{6})\/?$/i);
+	var match = window.location.pathname.match(/^\/game\/([A-Z0-9]{6})\/?$/i);
 	if (match == null) return "";
 	return match[1].toUpperCase();
 }
