@@ -51,6 +51,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 			return self.response(reflectile.do_waitturn(body_json))
 		elif command == "playturn":
 			return self.response(reflectile.do_playturn(body_json))
+		elif command == "gamestate":
+			return self.response(reflectile.do_gamestate(body_json))
 
 class ThreadingGameServer(ThreadingMixIn, HTTPServer):
 	pass

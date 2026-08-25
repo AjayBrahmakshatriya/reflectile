@@ -184,6 +184,42 @@ def do_waitturn(body_json):
 		resp_json["match2y"] = game.lastmatch2y
 
 	return resp_json
+
+def do_gamestate(body_json):
+	global running_games
+	gamename = body_json["gamename"]
+	if gamename not in running_games.keys():
+		return {"response": "badgamename"}
+
+	game = running_games[gamename]
+	playerid = body_json["playerid"]
+	if playerid != 1 and playerid != 2:
+		return {"response": "badplayer"}
+
+	player = game.player1 if playerid == 1 else game.player2
+	otherplayer = game.player2 if playerid == 1 else game.player1
+
+	return {
+		"response": "gamestate",
+		"gamename": game.gamename,
+		"playerid": playerid,
+		"playername": player.name,
+		"otherplayername": otherplayer.name,
+		"playercolor": player.color,
+		"hand": player.hand,
+		"board_state": game.board_state,
+		"rcount": game.rcount,
+		"bcount": game.bcount,
+		"state": game.state,
+		"lastcardplayed": game.lastcardplayed,
+		"lastcoloradded": game.lastcoloradded,
+		"lastmatchx": game.lastmatchx,
+		"lastmatchy": game.lastmatchy,
+		"lastmatch1x": game.lastmatch1x,
+		"lastmatch1y": game.lastmatch1y,
+		"lastmatch2x": game.lastmatch2x,
+		"lastmatch2y": game.lastmatch2y,
+	}
 	
 def do_gameend(game):
 	game.state = GAME_END

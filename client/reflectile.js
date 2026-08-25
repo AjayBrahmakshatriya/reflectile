@@ -52,6 +52,22 @@ function panBoard(dx, dy) {
 	});
 }
 
+function setGameUrl() {
+	if (gamename == "") return;
+	window.history.replaceState({}, "", "/" + gamename);
+}
+
+function saveResumeInfo() {
+	if (gamename == "" || playerid == -1) return;
+	localStorage.setItem("reflectile.playerid." + gamename, playerid);
+}
+
+function getGameIdFromUrl() {
+	var match = window.location.pathname.match(/^\/([A-Z0-9]{6})\/?$/i);
+	if (match == null) return "";
+	return match[1].toUpperCase();
+}
+
 function creategame() {
 	$("#createjoin").hide();
 	$("#namepanel").show();
@@ -122,6 +138,8 @@ function entergame() {
 				}
 				$("#namepanel").hide();
 				gamename = resp["gamename"];
+				setGameUrl();
+				saveResumeInfo();
 				hand_state = resp["hand"];
 				setCard(hand_state[0], 0);
 				setCard(hand_state[1], 1);
@@ -134,7 +152,7 @@ function entergame() {
 			'error': ajaxError,
 		});
 	} else {
-		gamename = $("#joinidbox").val();
+		gamename = $("#joinidbox").val().toUpperCase();
 		$.ajax({
 			'type': "POST",
 			'url': apiurl, 
@@ -147,6 +165,8 @@ function entergame() {
 					alert("Failed to join game, check Game ID");
 					return;
 				}
+				setGameUrl();
+				saveResumeInfo();
 				$("#namepanel").hide();
 				hand_state = resp["hand"];
 				setCard(hand_state[0], 0);
@@ -652,6 +672,46 @@ function setTileColor(x, y, color) {
 	board_state[x][y] = color;
 }
 
+function initializeBoardState() {
+	$("#tilecontainer").empty();
+
+	board_state = new Array(boardx);
+	for (i = 0; i < boardx; i++) {
+		board_state[i] = new Array(boardy);
+		for (j = 0; j < boardy; j++) {
+			board_state[i][j] = ' ';
+		}
+	}
+
+	rCount = gamesize;
+	bCount = gamesize;
+	updateTileBanner();
+}
+
+function setupInitialBoard() {
+	initializeBoardState();
+
+	midx=boardx/2 - 1;
+	midy=boardy/2 - 1;
+
+	setTileColor(midx, midy, "R");
+	setTileColor(midx + 1, midy + 1, "R");
+	setTileColor(midx + 1, midy, "B");
+	setTileColor(midx, midy + 1, "B");
+}
+
+function loadBoardState(new_board_state) {
+	initializeBoardState();
+
+	for (i = 0; i < boardx; i++) {
+		for (j = 0; j < boardy; j++) {
+			if (new_board_state[i][j] == "R" || new_board_state[i][j] == "B") {
+				setTileColor(i, j, new_board_state[i][j]);
+			}
+		}
+	}
+}
+
 function findInBoard(color) {
 	for (i = 0; i < boardx; i++) {
 		for (j = 0; j < boardy; j++) {
@@ -829,26 +889,87 @@ function gotoGameEnd() {
 	showScore();
 }
 
+function applyGameState(resp) {
+	gamename = resp["gamename"];
+	playerid = resp["playerid"];
+	playername = resp["playername"];
+	otherplayername = resp["otherplayername"];
+	playercolor = resp["playercolor"];
+	hand_state = resp["hand"];
+
+	lastmatchx = resp["lastmatchx"];
+	lastmatchy = resp["lastmatchy"];
+	lastmatch1x = resp["lastmatch1x"];
+	lastmatch1y = resp["lastmatch1y"];
+	lastmatch2x = resp["lastmatch2x"];
+	lastmatch2y = resp["lastmatch2y"];
+
+	loadBoardState(resp["board_state"]);
+	rCount = resp["rcount"];
+	bCount = resp["bcount"];
+	updateTileBanner();
+
+	setCard(hand_state[0], 0);
+	setCard(hand_state[1], 1);
+	setCard(hand_state[2], 2);
+
+	$("#card4").empty();
+	if (resp["lastcardplayed"] != -1) {
+		setCard(resp["lastcardplayed"], 4);
+	}
+
+	$("#createjoin").hide();
+	$("#namepanel").hide();
+	$("#waitingpanel").hide();
+	$("#discard-button").hide();
+	$("#color-picker-panel").hide();
+	$("#splash").hide();
+	$("body").addClass("game-active");
+
+	if (resp["state"] == 1) {
+		$("body").removeClass("game-active");
+		$("#splash").show();
+		$("#waitingpanel").show();
+		$("#gameidbox").html(gamename);
+		setTimeout(joinWaitHandler, 1000);
+	} else if ((resp["state"] == 3 && playerid == 1) || (resp["state"] == 4 && playerid == 2)) {
+		gotoState0();
+	} else if ((resp["state"] == 3 && playerid == 2) || (resp["state"] == 4 && playerid == 1)) {
+		gotoState3();
+	} else if (resp["state"] == 5) {
+		gotoGameEnd();
+	}
+}
+
+function resumeFromUrl() {
+	var urlGameId = getGameIdFromUrl();
+	if (urlGameId == "") return;
+
+	var savedPlayerId = localStorage.getItem("reflectile.playerid." + urlGameId);
+	if (savedPlayerId == null) {
+		$("#joinidbox").val(urlGameId);
+		return;
+	}
+
+	$.ajax({
+		'type': 'POST',
+		'url': apiurl,
+		'data': JSON.stringify({"command": "gamestate", "gamename": urlGameId, "playerid": parseInt(savedPlayerId)}),
+		'dataType': "json",
+		'success': function(resp) {
+			if (resp["response"] != "gamestate") {
+				$("#joinidbox").val(urlGameId);
+				return;
+			}
+			applyGameState(resp);
+		},
+		'error': ajaxError,
+	});
+}
+
 $(function() {
 
-	// Initialize board state 
-	
-	board_state = new Array(boardx);
-	for (i = 0; i < boardx; i++) {
-		board_state[i] = new Array(boardy);
-		for (j = 0; j < boardy; j++) {
-			board_state[i][j] = ' ';
-		}
-	}
-	
-	// Setup initial tiles
-	midx=boardx/2 - 1;
-	midy=boardy/2 - 1;
-
-	setTileColor(midx, midy, "R");	
-	setTileColor(midx + 1, midy + 1, "R");	
-	setTileColor(midx + 1, midy, "B");	
-	setTileColor(midx, midy + 1, "B");	
+	setupInitialBoard();
 
 	$("#tilepadding").draggable({start: function() {
 		isDragging = true;
@@ -857,4 +978,5 @@ $(function() {
 		isDragging = false;
 	});
 
+	resumeFromUrl();
 });
